@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="../static/layui/css/layui.css" rel="stylesheet"/>
+</head>
+<body>
+<form class="layui-form" style="width:400px; margin:100px auto; padding:30px 60px 15px 0; box-shadow:0px 0px 2px #333333">
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="username" lay-verify="title" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input type="password" name="password" lay-verify="pass" autocomplete="off" placeholder="请输入密码" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+            <input type="text" name="email" lay-verify="email" autocomplete="off" placeholder="请输入邮箱" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" lay-submit="" lay-filter="submitForm">立即注册</button>
+        </div>
+    </div>
+</form>
+</body>
+<script src="../static/js/jquery-3.4.1.js"></script>
+<script src="../static/layui/layui.all.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        layui.use(['form', 'layer'], function () {
+            var layer = layui.layer
+                ,form = layui.form
+
+            form.on('submit(submitForm)',function (data) {
+                $.ajax({
+                    url: '/user/register',
+                    type: 'POST',
+                    data: JSON.stringify(data.field),
+                    success:function (res) {
+                        layer.msg(res.msg)
+                    }
+                })
+            })
+        })
+    })
+</script>
+</html>
